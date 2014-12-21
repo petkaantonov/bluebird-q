@@ -1,0 +1,28 @@
+{
+  "name": "bluebird-q",
+  "version": "1.0.0",
+  "description": "Drop-in replacement for Q v1 that delegates to bluebird",
+  "main": "index.js",
+  "files": [
+      "index.js",
+      "LICENSE"
+  ],
+  "scripts": {
+    "test": "jasmine-node spec && promises-aplus-tests index.js"
+  },
+  "keywords": [
+    "bluebird",
+    "q",
+    "promises",
+    "promises-aplus"
+  ],
+  "author": "Petka Antonov <petka_antonov@hotmail.com> (https://github.com/petkaantonov/)",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^2.4.2"
+  },
+  "devDependencies": {
+    "jasmine-node": "^1.14.5",
+    "promises-aplus-tests": "^2.1.0"
+  }
+}

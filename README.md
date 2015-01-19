@@ -1,8 +1,8 @@
 ###Introduction
 
-This is a drop-in replacement for [Q version 1.x](http://npmjs.org/package/q) that delegates to [bluebird 2.4.2](http://npmjs.org/package/bluebird). Enjoy better stack traces, performance and memory usage without changing your existing legacy code.
+This is a drop-in replacement for [Q version 1.x](http://npmjs.org/package/q) that delegates to [bluebird 2.8](http://npmjs.org/package/bluebird). Enjoy better stack traces, performance and memory usage without changing your existing legacy code.
 
-Depends on bluebird 2.4.2.
+Depends on bluebird 2.8.
 
 Installation:
 

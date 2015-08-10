@@ -23,6 +23,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
+ /* jshint node:true,browser:true,newcap:false */
+ 'use strict';
+
 var Promise = require("bluebird/js/release/promise")();
 var scheduler = require("bluebird/js/release/schedule");
 var THIS = {};
@@ -67,7 +71,6 @@ var staticAliasMap = {
     fin: INSTANCE,
     "finally": INSTANCE,
     done: INSTANCE,
-    timeout: INSTANCE,
     nodeify: INSTANCE,
     nfapply: INSTANCE,
     nfcall: INSTANCE,
@@ -274,8 +277,8 @@ Promise.prototype.nodeify = function(callback) {
 
 Promise.prototype.inspect = function() {
     if (this.isPending()) return {state: "pending"};
-    else if(this.isFulfilled()) return {state: "fulfilled", value: this.value()}
-    else return {state: "rejected", reason: this.reason()}
+    else if(this.isFulfilled()) return {state: "fulfilled", value: this.value()};
+    else return {state: "rejected", reason: this.reason()};
 };
 
 Promise.prototype.passByCopy = function() {
@@ -386,7 +389,7 @@ function displayUnhandledReasons() {
         typeof window !== "undefined" &&
         window.console
     ) {
-        console.warn("[bluebird-Q] Unhandled rejection reasons (should be empty):")
+        console.warn("[bluebird-Q] Unhandled rejection reasons (should be empty):");
         unhandledReasons.forEach(function(reason) {
             console.warn(reason);
         });
@@ -498,11 +501,12 @@ if (typeof process === "object" && process && process.env && process.env.Q_DEBUG
     Q.longStackSupport = true;
 }
 
-function f() {};
+function f() {}
 f.prototype = Q;
 f.prototype = Promise.prototype;
 
 function doNode(fn, ctx, args) {
+     /* jshint validthis:true */
     ctx = ctx === THIS ? this : ctx;
     var d = Q.defer();
     args.push(d.makeNodeResolver());

@@ -162,6 +162,9 @@ Q.deferred = Q.pending = Q.defer;
 
 var settle = Promise.settle;
 var map = Promise.map;
+
+Promise.prototype.valueOf = Promise.prototype.value;
+
 Promise.prototype.allSettled = function() {
     return map(settle(this), bluebirdInspectionToQInspection);
 };

@@ -159,6 +159,13 @@ Q.defer = function() {
 };
 Q.deferred = Q.pending = Q.defer;
 
+Q.spread = function () {
+    if (arguments.length === 2 &&  arguments[0] != null && typeof arguments[0] !== 'Array') {
+        // This case is not correct usage of Q APIs, but Q handles it: single object is passed intead of array
+        arguments[0] = [arguments[0]];
+    }
+    return Promise.spread.apply(this, arguments);
+};
 
 var settle = Promise.settle;
 var map = Promise.map;

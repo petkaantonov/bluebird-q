@@ -23,8 +23,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-var Promise = require("bluebird/js/main/promise")();
-var scheduler = require("bluebird/js/main/schedule");
+var Promise = require("bluebird/js/release/promise")();
+var scheduler = require("bluebird/js/release/schedule");
 var THIS = {};
 var INSTANCE = {};
 
@@ -32,7 +32,6 @@ var aliasMap = {
     thenReturn: "thenResolve",
     thenThrow: "thenReject",
     caught: "fail",
-    progressed: "progress",
     lastly: "fin",
     call: "send mcall invoke".split(" ")
 };
@@ -65,7 +64,6 @@ var staticAliasMap = {
     allSettled: INSTANCE,
     fail: INSTANCE,
     "catch": INSTANCE,
-    progress: INSTANCE,
     fin: INSTANCE,
     "finally": INSTANCE,
     done: INSTANCE,

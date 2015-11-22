@@ -19,7 +19,7 @@
   "author": "Petka Antonov <petka_antonov@hotmail.com> (https://github.com/petkaantonov/)",
   "license": "MIT",
   "dependencies": {
-    "bluebird": "^2.8.0"
+    "bluebird": "^3.0.5"
   },
   "devDependencies": {
     "jasmine-node": "^1.14.5",

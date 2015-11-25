@@ -16,6 +16,9 @@ Usage:
 var Q = require("bluebird-q");
 ```
 
+###API
+Additionaly to Q APIs following methods are availible on Q object:
+ - Q.getBluebirdPromise(): Returns native bluebird Promise
 
 ###Testing
 

@@ -159,6 +159,9 @@ Q.defer = function() {
 };
 Q.deferred = Q.pending = Q.defer;
 
+Q.getBluebirdPromise = function() {
+	return Promise;
+};
 
 var settle = Promise.settle;
 var map = Promise.map;

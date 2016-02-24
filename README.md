@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/petkaantonov/bluebird-q.svg?branch=master)](https://travis-ci.org/petkaantonov/bluebird-q)
+
 ###Introduction
 
 This is a drop-in replacement for [Q version 1.x](http://npmjs.org/package/q) that delegates to [bluebird 2.8](http://npmjs.org/package/bluebird). Enjoy better stack traces, performance and memory usage without changing your existing legacy code.

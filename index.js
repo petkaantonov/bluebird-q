@@ -188,10 +188,10 @@ Promise.prototype.fbind = function() {
     var args = [].slice.call(arguments);
     var promise = this;
     return function() {
-        args = args.concat([].slice.call(arguments));
+        var cargs = args.concat([].slice.call(arguments));
         var self = this;
         return promise.then(function(fn) {
-            return fn.apply(self, args);
+            return fn.apply(self, cargs);
         });
     };
 };
@@ -221,9 +221,9 @@ Promise.prototype.nfbind = Promise.prototype.denodeify = function() {
     var args = [].slice.call(arguments);
     return function() {
         var self = this;
-        args = args.concat([].slice.call(arguments));
+        var cargs = args.concat([].slice.call(arguments));
         return nodeFn.then(function(nodeFn) {
-            return doNode(nodeFn, self, args);
+            return doNode(nodeFn, self, cargs);
         });
     };
 };
@@ -232,9 +232,9 @@ Promise.prototype.nbind = function(ctx) {
     var nodeFn = this;
     var args = [].slice.call(arguments, 1);
     return function() {
-        args = args.concat([].slice.call(arguments));
+        var cargs = args.concat([].slice.call(arguments));
         return nodeFn.then(function(nodeFn) {
-            return doNode(nodeFn, ctx, args);
+            return doNode(nodeFn, ctx, cargs);
         });
     };
 };

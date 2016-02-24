@@ -388,8 +388,12 @@ function displayUnhandledReasons() {
         typeof window !== "undefined" &&
         window.console
     ) {
-        console.warn("[bluebird-Q] Unhandled rejection reasons (should be empty):",
-                     unhandledReasons);
+        console.warn("[bluebird-Q] Unhandled rejection reasons (should be empty):")
+        unhandledReasons.forEach(function(reason) {
+            console.warn(reason);
+        });
+        console.warn("[/bluebird-Q]");
+
     }
 
     unhandledReasonsDisplayed = true;

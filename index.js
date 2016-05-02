@@ -164,19 +164,43 @@ Q.getBluebirdPromise = function() {
 	return Promise;
 };
 
-var settle = Promise.settle;
-var map = Promise.map;
-
 Promise.prototype.valueOf = Promise.prototype.value;
 
 Promise.prototype.allSettled = function() {
-    return map(settle(this), bluebirdInspectionToQInspection);
+    return Promise.all(this.value().map(function(promise) {
+        return promise.reflect();
+    })).then(function(oResult) { 
+        var aPromState = [];
+        for (var i = 0; i < oResult.length; i++) {
+            var inspection = oResult[i];
+            if (inspection.isFulfilled()) {
+                aPromState.push({state: "fulfilled", value: inspection.value()});
+            } else if (inspection.isRejected()) {
+                aPromState.push({state: "rejected", reason: inspection.reason()});
+            } else {
+                aPromState.push({state: "pending"});
+            }
+        }
+        
+        return aPromState;
+    });
 };
 
 Promise.prototype.allResolved = function() {
-    return map(settle(this), function(i) {
-        if (i.isFulfilled()) return Q(i.value());
-        if (i.isRejected()) return Q.reject(i.reason());
+    return Promise.all(this.value().map(function(promise) {
+        return promise.reflect();
+    })).then(function(oResult) { 
+        var aPromState = [];
+        for (var i = 0; i < oResult.length; i++) {
+            var inspection = oResult[i];
+            if (inspection.isFulfilled()) {
+                aPromState.push(Q(inspection.value()));
+            } else {
+                aPromState.push(Q.reject(inspection.value()));
+            }
+        }
+        
+        return aPromState;
     });
 };
 

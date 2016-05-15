@@ -166,10 +166,24 @@ Q.getBluebirdPromise = function() {
 
 Promise.prototype.valueOf = Promise.prototype.value;
 
+// used as a helper for allSettled and allResolved functions
+var _handlePromiseWithArrayValue = function(that) {
+	if (that instanceof Array) {
+		return Promise.all(that.map(function(oResult) {
+	    	var oPromise = (oResult instanceof Promise ? oResult : Q(oResult));
+	    	return oPromise.reflect();
+	    }));
+	} else if (that instanceof Promise) {
+		return that.then(function(aPromises) {
+			return _handlePromiseWithArrayValue(aPromises);
+		});
+	} 
+	
+	throw new Error("that must be a promise or an array");
+};
+
 Promise.prototype.allSettled = function() {
-    return Promise.all(this.value().map(function(promise) {
-        return promise.reflect();
-    })).then(function(oResult) { 
+    return _handlePromiseWithArrayValue(this).then(function(oResult) { 
         var aPromState = [];
         for (var i = 0; i < oResult.length; i++) {
             var inspection = oResult[i];
@@ -187,9 +201,7 @@ Promise.prototype.allSettled = function() {
 };
 
 Promise.prototype.allResolved = function() {
-    return Promise.all(this.value().map(function(promise) {
-        return promise.reflect();
-    })).then(function(oResult) { 
+    return _handlePromiseWithArrayValue(this).then(function(oResult) { 
         var aPromState = [];
         for (var i = 0; i < oResult.length; i++) {
             var inspection = oResult[i];

@@ -1,6 +1,6 @@
 {
   "name": "bluebird-q",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Drop-in replacement for Q v1 that delegates to bluebird",
   "main": "index.js",
   "files": [
@@ -19,7 +19,7 @@
   "author": "Petka Antonov <petka_antonov@hotmail.com> (https://github.com/petkaantonov/)",
   "license": "MIT",
   "dependencies": {
-    "bluebird": "^3.3.1"
+    "bluebird": "^3.3.5"
   },
   "devDependencies": {
     "jasmine-node": "^1.14.5",

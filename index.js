@@ -164,19 +164,55 @@ Q.getBluebirdPromise = function() {
 	return Promise;
 };
 
-var settle = Promise.settle;
-var map = Promise.map;
-
 Promise.prototype.valueOf = Promise.prototype.value;
 
+// used as a helper for allSettled and allResolved functions
+var _handlePromiseWithArrayValue = function(that) {
+	if (that instanceof Array) {
+		return Promise.all(that.map(function(oResult) {
+	    	var oPromise = (oResult instanceof Promise ? oResult : Q(oResult));
+	    	return oPromise.reflect();
+	    }));
+	} else if (that instanceof Promise) {
+		return that.then(function(aPromises) {
+			return _handlePromiseWithArrayValue(aPromises);
+		});
+	} 
+	
+	throw new Error("that must be a promise or an array");
+};
+
 Promise.prototype.allSettled = function() {
-    return map(settle(this), bluebirdInspectionToQInspection);
+    return _handlePromiseWithArrayValue(this).then(function(oResult) { 
+        var aPromState = [];
+        for (var i = 0; i < oResult.length; i++) {
+            var inspection = oResult[i];
+            if (inspection.isFulfilled()) {
+                aPromState.push({state: "fulfilled", value: inspection.value()});
+            } else if (inspection.isRejected()) {
+                aPromState.push({state: "rejected", reason: inspection.reason()});
+            } else {
+                aPromState.push({state: "pending"});
+            }
+        }
+        
+        return aPromState;
+    });
 };
 
 Promise.prototype.allResolved = function() {
-    return map(settle(this), function(i) {
-        if (i.isFulfilled()) return Q(i.value());
-        if (i.isRejected()) return Q.reject(i.reason());
+    return _handlePromiseWithArrayValue(this).then(function(oResult) { 
+        var aPromState = [];
+        for (var i = 0; i < oResult.length; i++) {
+            var inspection = oResult[i];
+            if (inspection.isFulfilled()) {
+                aPromState.push(Q(inspection.value()));
+            } else {
+                aPromState.push(Q.reject(inspection.value()));
+            }
+        }
+        
+        return aPromState;
     });
 };
 

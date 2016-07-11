@@ -177,8 +177,7 @@ var _handlePromiseWithArrayValue = function(that) {
 		return that.then(function(aPromises) {
 			return _handlePromiseWithArrayValue(aPromises);
 		});
-	} 
-	
+	} 	
 	throw new Error("that must be a promise or an array");
 };
 
@@ -192,10 +191,9 @@ Promise.prototype.allSettled = function() {
             } else if (inspection.isRejected()) {
                 aPromState.push({state: "rejected", reason: inspection.reason()});
             } else {
-                aPromState.push({state: "pending"});
+                throw new Error("The settled promise has to be fulfilled or rejected");
             }
         }
-        
         return aPromState;
     });
 };
@@ -207,11 +205,12 @@ Promise.prototype.allResolved = function() {
             var inspection = oResult[i];
             if (inspection.isFulfilled()) {
                 aPromState.push(Q(inspection.value()));
+            } else if (inspection.isRejected()) {
+                aPromState.push(Q.reject(inspection.reason()));
             } else {
-                aPromState.push(Q.reject(inspection.value()));
-            }
+	            throw new Error("The settled promise has to be fulfilled or rejected");
+	        }
         }
-        
         return aPromState;
     });
 };

@@ -45,7 +45,7 @@ var staticAliasMap = {
     resolve: "resolve resolved fulfill fulfilled".split(" "),
     is: "isPromise",
     race: "race",
-    async: "coroutine",
+    coroutine: "async",
     spawn: "spawn",
     delay: "delay",
 

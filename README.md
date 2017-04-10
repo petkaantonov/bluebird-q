@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/petkaantonov/bluebird-q.svg?branch=master)](https://travis-ci.org/petkaantonov/bluebird-q)
 
-###Introduction
+### Introduction
 
 This is a drop-in replacement for [Q version 1.x](http://npmjs.org/package/q) that delegates to [bluebird 3.4.6](http://npmjs.org/package/bluebird). Enjoy better stack traces, performance and memory usage without changing your existing legacy code.
 
@@ -16,15 +16,15 @@ Usage:
 var Q = require("bluebird-q");
 ```
 
-###API
+### API
 Additionaly to Q APIs following methods are availible on Q object:
  - Q.getBluebirdPromise(): Returns native bluebird Promise
 
-###Testing
+### Testing
 
 Clone this repository and then run `npm install && npm test` in the cloned directory root.
 
-###Caveats
+### Caveats
 
  - `dispatch`, `progress` and `Q.makePromise` are unimplemented
  - Currently relies on `Object.defineProperty` so cannot be used in browsers that don't support ES5

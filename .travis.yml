@@ -7,7 +7,7 @@ matrix:
     - node_js: "4"
     - node_js: "5"
   fast_finish: true
-script: "jshint index.js && jasmine-node spec && promises-aplus-tests index.js"
+script: "jshint index.js && jasmine-node --captureExceptions spec && promises-aplus-tests index.js"
 branches:
   only:
     - master

@@ -9,7 +9,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "test": "jshint index.js && jasmine-node spec && promises-aplus-tests index.js",
+    "test": "jshint index.js && jasmine-node --captureExceptions spec && promises-aplus-tests index.js",
     "prepublish": "browserify index.js -o q.js -s Q --dg=false"
   },
   "keywords": [
